@@ -1,3 +1,7 @@
+var
+	Registry = require('../lib/registry'),
+	report   = require('../lib/report')
+	;
 
 function hooks(argv)
 {

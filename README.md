@@ -35,6 +35,6 @@ Options:
   --version  show version information                                  [boolean]
 ```
 
-Nothing actually works.
+Only `whoami` actually works.
 
-Yet.
+So far.
