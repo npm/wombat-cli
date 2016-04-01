@@ -1,7 +1,7 @@
 {
   "name": "wombat-cli",
   "description": "The wombat cli tool.",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "author": "C J Silverio <ceej@npmjs.com>",
   "bin": {
     "wombat": "bin/wombat-cli.js"
@@ -10,6 +10,7 @@
     "url": "https://github.com/npm/wombat-cli/issues"
   },
   "dependencies": {
+    "require-directory": "~2.1.1",
     "yargs": "~4.3.2"
   },
   "devDependencies": {
