@@ -1,0 +1,34 @@
+{
+  "name": "wombat-cli",
+  "description": "The wombat cli tool.",
+  "version": "1.0.0",
+  "author": "C J Silverio <ceej@npmjs.com>",
+  "bin": {
+    "wombat": "bin/wombat-cli.js"
+  },
+  "bugs": {
+    "url": "https://github.com/npm/wombat-cli/issues"
+  },
+  "dependencies": {
+    "yargs": "~4.3.2"
+  },
+  "devDependencies": {
+    "coveralls": "~2.11.9",
+    "eslint": "~2.6.0",
+    "mocha": "~2.4.5",
+    "must": "~0.13.1",
+    "nyc": "~6.1.1"
+  },
+  "homepage": "https://github.com/npm/wombat-cli#readme",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/npm/wombat-cli.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha -R spec test/"
+  }
+}
