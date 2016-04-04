@@ -32,6 +32,8 @@ function whoami(argv)
 }
 
 module.exports = {
-	description: 'which npm user are you',
-	func: whoami
+	command: 'whoami',
+	describe: 'control your webhooks',
+	handler: whoami,
+	builder: function(){}
 };
