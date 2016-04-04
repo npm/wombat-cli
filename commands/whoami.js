@@ -33,7 +33,7 @@ function whoami(argv)
 
 module.exports = {
 	command: 'whoami',
-	describe: 'control your webhooks',
+	describe: 'the username you are authenticated as',
 	handler: whoami,
 	builder: function(){}
 };
