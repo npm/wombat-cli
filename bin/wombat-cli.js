@@ -15,3 +15,16 @@ Object.keys(commands).forEach(function(c)
 });
 
 var argv = yargs.argv;
+
+// wombat : npm :: hub : git
+if (!argv._handled)
+{
+	var spawn = require('child_process').spawn;
+	var opts = {
+		cwd: process.cwd,
+		env: process.env,
+		stdio: 'inherit',
+	};
+	var original = process.argv.slice(2);
+	spawn('npm', original, opts);
+}

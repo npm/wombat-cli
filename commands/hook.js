@@ -7,6 +7,7 @@ var
 function hooks(argv)
 {
 	// TODO: should just respond with help, I think, or docs
+	argv._handled = true;
 }
 
 hooks.add = function add(argv)
@@ -16,6 +17,7 @@ hooks.add = function add(argv)
 		' to ' + chalk.yellow(argv.url) +
 		' with shared secret ' + chalk.red(argv.secret)
 	);
+	process.exit();
 };
 
 hooks.rm = function rm(argv)
@@ -43,7 +45,6 @@ function noop() {}
 function builder(yargs)
 {
 	return yargs
-		.reset()
 		.command('add <pkg> <url> <secret>', 'add a webhook', noop, hooks.add)
 		.command('rm <pkg> <url>', 'remove a webhook', noop, hooks.rm)
 		.command('ls [pkg]', 'list webhooks', noop, hooks.ls)

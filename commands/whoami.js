@@ -29,6 +29,7 @@ function whoami(argv)
 			console.log(body.username);
 		});
 	});
+	argv._handled = true;
 }
 
 module.exports = {
