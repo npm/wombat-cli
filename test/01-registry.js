@@ -110,7 +110,4 @@ describe('registry client', function()
 			done();
 		});
 	});
-
-
-
 });

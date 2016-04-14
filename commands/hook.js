@@ -41,6 +41,12 @@ hooks.ls = function ls(argv)
 	});
 };
 
+hooks.update = function update(argv)
+{
+	// TODO
+	report.success('hook update', 'updating hook id ' + chalk.yellow(argv.id));
+};
+
 hooks.test = function test(argv)
 {
 	// TODO
@@ -54,7 +60,7 @@ function builder(yargs)
 	return yargs
 		.command('ls [pkg]', 'list your hooks', noop, hooks.ls)
 		.command('add <pkg> <url> <secret>', 'add a hook to the named package', noop, hooks.add)
-		.command('update <id> <url> [secret]', 'update an existing hook', noop, hooks.add)
+		.command('update <id> <url> [secret]', 'update an existing hook', noop, hooks.update)
 		.command('rm <id>', 'remove a hook', noop, hooks.rm)
 		.command('test <id>', 'test a hook', noop, hooks.test)
 		.example('$0 hook add lodash https://example.com/ my-shared-secret')
