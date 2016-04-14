@@ -22,7 +22,8 @@
     "eslint": "~2.7.0",
     "mocha": "~2.4.5",
     "must": "~0.13.1",
-    "nyc": "~6.4.0"
+    "nyc": "~6.4.0",
+    "sinon": "~1.17.3"
   },
   "homepage": "https://github.com/npm/wombat-cli#readme",
   "keywords": [],
@@ -35,7 +36,7 @@
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
-    "test": "mocha -R spec test/",
+    "test": "nyc mocha -R spec test/",
     "travis": "npm run lint && npm test && npm run coverage"
   }
 }

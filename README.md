@@ -1,5 +1,7 @@
 # wombat-cli
 
+[![Tests](http://img.shields.io/travis/npm/wombat-cli.svg?style=flat)](http://travis-ci.org/npm/wombat-cli) [![Coverage](http://img.shields.io/coveralls/npm/wombat-cli.svg?style=flat)](https://coveralls.io/r/npm/wombat-cli)
+
 The wombat cli tool.
 
 
