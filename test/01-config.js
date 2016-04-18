@@ -14,18 +14,35 @@ describe('configuration', function()
 		var cfg = new Config();
 		cfg.must.be.instanceof(Config);
 		cfg.must.have.property('config');
+		cfg.get.must.be.a.function();
+		cfg.load.must.be.a.function();
 	});
 
-	it('section() returns the named section', function()
+	it('makes one even without the new', function()
+	{
+		var cfg = Config();
+		cfg.must.be.instanceof(Config);
+		cfg.must.have.property('config');
+	});
+
+	it('load() returns the named section', function()
 	{
 		var cfg = new Config();
-		cfg.section.must.be.a.function();
-		var chunk = cfg.section({ registry: 'registry.npmjs.org' });
+		cfg.load.must.be.a.function();
+		var chunk = cfg.load({ registry: 'registry.npmjs.org' });
 		chunk.must.be.an.object();
 		chunk.must.have.property('api');
 
-		var chunk2 = cfg.section({ registry: 'blort' });
+		var chunk2 = cfg.load({ registry: 'blort' });
 		chunk.must.be.an.object();
 		chunk.must.have.property('api');
+	});
+
+	it('get() returns the key for the named value', function()
+	{
+		var cfg = new Config();
+		cfg.load({ registry: 'registry.npmjs.org' });
+		var value = cfg.get('api');
+		value.must.equal('https://api.npmjs.org');
 	});
 });

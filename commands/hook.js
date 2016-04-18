@@ -28,9 +28,11 @@ hooks.rm = function rm(argv)
 
 hooks.ls = function ls(argv)
 {
-	var uri = '/v1/hooks/hook';
+	var uri = argv.rc.api + '/v1/hooks/hook';
 	if (argv.pkg)
 		uri += '/' + encodeURIComponent(argv.pkg);
+
+	console.log(uri);
 
 	Registry.authed('GET', uri, function(err, res, body)
 	{
