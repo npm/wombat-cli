@@ -12,7 +12,7 @@ function whoami(argv)
 		if (!body || !body.username)
 			return report.failure('whoami', 'unexpected registry response! ' + JSON.stringify(body));
 
-		console.log(body.username);
+		console.log(body.username.trim());
 	});
 	argv._handled = true;
 }
