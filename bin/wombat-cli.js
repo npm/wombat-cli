@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 
 var yargs = require('yargs')
+	.option('registry', {
+		description: 'fully-qualified hostname of the registry to use',
+		default: 'registry.npmjs.org'
+	})
 	.help('help')
 	.version(function() { return require('../package').version; })
 	.describe('version', 'show version information')

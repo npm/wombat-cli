@@ -75,7 +75,7 @@ describe('registry client', function()
 		Registry.authed('GET', '/foo', function(err, res, body)
 		{
 			err.must.be.an.object();
-			err.must.match(/no auth token in npmrc/);
+			err.must.match(/you are not logged in/);
 			done();
 		});
 	});
