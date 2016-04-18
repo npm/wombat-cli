@@ -1,6 +1,5 @@
 var
 	chalk    = require('chalk'),
-	config   = require('../lib/config')(),
 	Registry = require('../lib/registry'),
 	report   = require('../lib/report')
 	;
@@ -9,7 +8,6 @@ function hooks(argv)
 {
 	// set this here and it's set for all the subcommands
 	argv._handled = true;
-	argv.rc = config.load(argv);
 }
 
 hooks.add = function add(argv)
