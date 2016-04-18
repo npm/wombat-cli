@@ -3,7 +3,6 @@
 
 var
 	demand   = require('must'),
-	sinon    = require('sinon'),
 	Config = require('../lib/config')
 	;
 
@@ -34,8 +33,7 @@ describe('configuration', function()
 		chunk.must.have.property('api');
 
 		var chunk2 = cfg.load({ registry: 'blort' });
-		chunk.must.be.an.object();
-		chunk.must.have.property('api');
+		demand(chunk2).not.exist();
 	});
 
 	it('get() returns the key for the named value', function()

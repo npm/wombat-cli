@@ -32,11 +32,14 @@ describe('whoami command', function()
 	it('calls Registry.authed', function()
 	{
 		var spy = sinon.spy(console, 'log');
-		var stub = sinon.stub(Registry, 'authed');
+		var reg = Registry();
+		var stub = sinon.stub(reg, 'authed');
 		stub.yields(null, { statusCode: 200 }, { username: 'test '});
-		whoami.handler({});
+
+		whoami.handler({ reg: reg });
+
 		stub.calledOnce.must.be.true();
-		stub.calledWith('GET', '/-/whoami').must.be.true();
+		stub.calledWith({ method: 'GET', uri: '/-/whoami', legacy: true }).must.be.true();
 		stub.restore();
 		spy.calledWith('test').must.be.true();
 		spy.restore();
@@ -45,9 +48,10 @@ describe('whoami command', function()
 	it('logs an error on networking error', function()
 	{
 		var spy = sinon.spy(Report, 'failure');
-		var stub = sinon.stub(Registry, 'authed');
+		var reg = Registry();
+		var stub = sinon.stub(reg, 'authed');
 		stub.yields(new Error('wat'));
-		whoami.handler({});
+		whoami.handler({ reg: reg });
 		stub.calledOnce.must.be.true();
 		stub.restore();
 		spy.calledOnce.must.be.true();
@@ -57,9 +61,10 @@ describe('whoami command', function()
 	it('logs an error on unexpected response', function()
 	{
 		var spy = sinon.spy(Report, 'failure');
-		var stub = sinon.stub(Registry, 'authed');
+		var reg = Registry();
+		var stub = sinon.stub(reg, 'authed');
 		stub.yields(null, { statusCode: 401 }, { error: 'wat' });
-		whoami.handler({});
+		whoami.handler({ reg: reg });
 		stub.calledOnce.must.be.true();
 		stub.restore();
 		spy.calledOnce.must.be.true();
@@ -68,9 +73,10 @@ describe('whoami command', function()
 
 	it('sets the ._handled field on its input', function()
 	{
-		var argv = {};
-		var stub = sinon.stub(Registry, 'authed');
+		var reg = Registry();
+		var stub = sinon.stub(reg, 'authed');
 		stub.yields(null, { statusCode: 200 }, { username: 'test '});
+		var argv = { reg: reg };
 		whoami.handler(argv);
 		stub.restore();
 		argv.must.have.property('_handled');

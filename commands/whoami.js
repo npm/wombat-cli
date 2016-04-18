@@ -5,7 +5,9 @@ var
 
 function whoami(argv)
 {
-	Registry.authed('GET', '/-/whoami', function(err, res, body)
+	var reg = argv.reg || new Registry(argv);
+
+	reg.authed({ method: 'GET', uri: '/-/whoami', legacy: true }, function(err, res, body)
 	{
 		if (err)
 			return report.failure('whoami', err.message);
