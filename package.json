@@ -16,6 +16,7 @@
     "registry-auth-token": "~1.1.0",
     "request": "~2.72.0",
     "require-directory": "~2.1.1",
+    "update-notifier": "~0.6.3",
     "yargs": "~4.6.0"
   },
   "devDependencies": {

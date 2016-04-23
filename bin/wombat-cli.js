@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+var updater = require('update-notifier'),
+	pkg     = require('./package.json');
+
+updater({pkg}).notify();
+
 var yargs = require('yargs')
 	.option('registry', {
 		description: 'fully-qualified hostname of the registry to use',
