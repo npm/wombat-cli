@@ -29,16 +29,19 @@ The wombat cli tool.
 the helpful wombat tool
 
 Commands:
-  hook    control your hooks
-  whoami  the username you are authenticated as
+  hook            control your hooks
+  view <package>  see information about the named package
+  whoami          the username you are authenticated as
 
 Options:
-  --help     Show help                                                 [boolean]
-  --version  show version information                                  [boolean]
+  --registry  fully-qualified hostname of the registry to use
+                                                 [default: "registry.npmjs.org"]
+  --help      Show help                                                [boolean]
+  --version   show version information                                 [boolean]
 ```
 
 You may also do fun things like `wombat ls --depth=0` and `npm` will be invoked.
 
 ## license
 
-ISC probably eventually. For the moment unreleased.s
+ISC probably eventually. For the moment unreleased.
