@@ -58,7 +58,7 @@ function view(argv)
 		Object.keys(version.dependencies).forEach(function(d)
 		{
 			deps.push(chalk.yellow(d) + ': ' + version.dependencies[d]);
-		})
+		});
 		console.log(columns(deps));
 
 		console.log('');
@@ -71,7 +71,7 @@ function view(argv)
 		console.log(columns(deps));
 
 		console.log('');
-		console.log('Versions: ' + Object.keys(pkg.versions).join(', '))
+		console.log('Versions: ' + Object.keys(pkg.versions).join(', '));
 
 		if (argv.readme)
 		{
