@@ -37,10 +37,8 @@ function view(argv)
 		var version = pkg.versions[latest];
 
 		console.log('');
-		console.log(chalk.blue(pkg.name));
-		console.log('latest v' + chalk.blue(latest) +
-			' published ' +
-			moment(pkg.time[latest]).format('lll'));
+		console.log(chalk.blue(pkg.name) + '@' + chalk.blue(latest));
+		console.log('published ' + moment(pkg.time[latest]).format('lll'));
 		console.log('by ' + chalk.blue(version._npmUser.name) + ' <' + version._npmUser.email + '>');
 		console.log('');
 		console.log(pkg.description);
@@ -50,7 +48,6 @@ function view(argv)
 		console.log('homepage: ' + chalk.yellow(pkg.homepage));
 		console.log('tarball: ' + chalk.yellow(version.dist.tarball));
 		console.log('shasum: ' + chalk.yellow(version.dist.shasum));
-
 
 		console.log('');
 		console.log('dependencies:');
