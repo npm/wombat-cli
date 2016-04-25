@@ -141,6 +141,7 @@ function builder(yargs)
 		.example('$0 hook add lodash https://example.com/ my-shared-secret')
 		.example('$0 hook ls lodash')
 		.example('$0 hook rm id-ers83f')
+		.demand(2)
 	;
 }
 
@@ -148,5 +149,6 @@ module.exports = {
 	command: 'hook',
 	describe: 'control your hooks',
 	builder: builder,
-	handler: hooks
+	handler: hooks,
+	aliases: [ 'hooks' ]
 };
