@@ -25,7 +25,7 @@ Object.keys(commands).forEach(function(c)
 
 	if (cmd.aliases)
 	{
-		cmd.aliases.forEach(function(alias) { yargs.command(cmd).command(alias, false, cmd); });
+		cmd.aliases.forEach(function(alias) { yargs.command(alias, false, cmd); });
 	}
 });
 
