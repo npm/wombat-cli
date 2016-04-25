@@ -21,7 +21,7 @@ var requireDirectory = require('require-directory'),
 Object.keys(commands).forEach(function(c)
 {
 	var cmd = commands[c];
-	yargs.command(commands[c]);
+	yargs.command(cmd);
 
 	if (cmd.aliases)
 	{
