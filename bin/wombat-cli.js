@@ -1,12 +1,9 @@
 #!/usr/bin/env node
 
-/*
-// turned off until this is published.
 var updater = require('update-notifier'),
 	pkg     = require('../package.json');
 
-updater(pkg).notify();
-*/
+updater({pkg: pkg}).notify();
 
 var yargs = require('yargs')
 	.option('registry', {
