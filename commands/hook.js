@@ -79,7 +79,7 @@ hooks.ls = function ls(argv)
 
 		// body.objects, body.total body.urls doesnt not exist yet.
 		// TODO format the response once we know what it looks like
-		report.success('hook ls', "\n"+JSON.stringify(body.objects,null,'  '));
+		report.success('hook ls', '\n' + JSON.stringify(body.objects,null,'  '));
 	});
 };
 
