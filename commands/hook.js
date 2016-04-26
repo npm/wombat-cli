@@ -93,7 +93,7 @@ hooks.update = function update(argv)
 		method: 'PUT',
 		uri: '/v1/hooks/hook/' + encodeURIComponent(argv.id),
 		body: {
-			url:    argv.url,
+			endpoint:    argv.url,
 			secret: argv.secret
 		}
 	};
