@@ -22,9 +22,10 @@ hooks.add = function add(argv)
 	var opts = {
 		method: 'POST',
 		uri: '/v1/hooks/hook/',
-		json: {
+		body: {
+			type: argv.type || 'package',
 			name:   argv.pkg,
-			url:    argv.url,
+			endpoint:    argv.url,
 			secret: argv.secret
 		}
 	};
@@ -37,7 +38,7 @@ hooks.add = function add(argv)
 			return report.failure('hook add', res.statusCode + ' ' + JSON.stringify(hook));
 
 		// TODO assumption here is that the body of the response is the updated hook
-		report.success('+', hook.name + ' ➜ ' + hook.url);
+		report.success('+', hook.name + ' ➜ ' + hook.endpoint);
 	});
 };
 
@@ -91,8 +92,8 @@ hooks.update = function update(argv)
 	var opts = {
 		method: 'PUT',
 		uri: '/v1/hooks/hook/' + encodeURIComponent(argv.id),
-		json: {
-			url:    argv.url,
+		body: {
+			endpoint:    argv.url,
 			secret: argv.secret
 		}
 	};
@@ -105,7 +106,7 @@ hooks.update = function update(argv)
 			return report.failure('hook update', res.statusCode + ' ' + JSON.stringify(hook));
 
 		// TODO assumption here is that the body of the response is the updated hook
-		report.success('+', hook.name + ' ➜ ' + hook.url);
+		report.success('+', hook.name + ' ➜ ' + hook.endpoint);
 	});
 };
 
