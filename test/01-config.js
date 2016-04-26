@@ -28,7 +28,7 @@ describe('configuration', function()
 	{
 		var cfg = new Config();
 		cfg.load.must.be.a.function();
-		var chunk = cfg.load({ registry: 'registry.npmjs.org' });
+		var chunk = cfg.load({ registry: 'https://registry.npmjs.org' });
 		chunk.must.be.an.object();
 		chunk.must.have.property('api');
 
@@ -39,7 +39,7 @@ describe('configuration', function()
 	it('get() returns the key for the named value', function()
 	{
 		var cfg = new Config();
-		cfg.load({ registry: 'registry.npmjs.org' });
+		cfg.load({ registry: 'https://registry.npmjs.org' });
 		var value = cfg.get('api');
 		value.must.equal('https://api.npmjs.org');
 	});

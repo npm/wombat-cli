@@ -47,7 +47,7 @@ hooks.rm = function rm(argv)
 	report.success('hook rm', 'un-hooking ' + chalk.yellow(argv.id));
 	var reg = new Registry(argv);
 	var opts = {
-		method: 'DEL',
+		method: 'DELETE',
 		uri: '/v1/hooks/hook/' + encodeURIComponent(argv.id),
 	};
 
@@ -59,7 +59,7 @@ hooks.rm = function rm(argv)
 			return report.failure('hook rm', res.statusCode + ' ' + JSON.stringify(hook));
 
 		// TODO assumption here is that the body of the response is the updated hook
-		report.success('–', hook.name + ' ✘ ' + hook.url);
+		report.success('–', hook.name + ' ✘ ' + hook.endpoint);
 	});
 };
 
@@ -77,8 +77,9 @@ hooks.ls = function ls(argv)
 		if (!body || res.statusCode < 200 || res.statusCode >= 400)
 			return report.failure('hook ls', res.statusCode + ' ' + JSON.stringify(body));
 
+		// body.objects, body.total body.urls doesnt not exist yet.
 		// TODO format the response once we know what it looks like
-		report.success('hook ls', JSON.stringify(body));
+		report.success('hook ls', '\n' + JSON.stringify(body.objects,null,'  '));
 	});
 };
 
