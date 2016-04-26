@@ -42,5 +42,5 @@ if (!argv._handled)
 	};
 	var original = process.argv.slice(2);
 	spawn('npm', original, opts)
-		.on('exit',function(code){ process.exit(code); })
+		.on('exit',function(code){ process.exit(code); });
 }
