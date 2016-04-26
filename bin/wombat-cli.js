@@ -41,5 +41,6 @@ if (!argv._handled)
 		stdio: 'inherit',
 	};
 	var original = process.argv.slice(2);
-	spawn('npm', original, opts);
+	spawn('npm', original, opts)
+		.on('exit',function(code){ process.exit(code); })
 }
