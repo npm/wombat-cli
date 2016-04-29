@@ -65,7 +65,7 @@ registry = "https://npm-enterprise.private.npmjs.com"
 api = "https://api.private.npmjs.com"
 ```
 
-Then run something like `wombat -r enterprise view @secret/private-package`
+Then run something like `wombat -r enterprise package @secret/private-package`
 
 ## web hooks
 
@@ -87,6 +87,12 @@ Examples:
 ```
 
 ## viewing packages
+
+`wombat package yargs` shows you a formatted description of the package meta-data. Pass `--readme` to get the package readme rendered in your terminal as markdown!
+
+## whoami
+
+Find out who you are logged in as for the registry you're using.
 
 ## license
 
