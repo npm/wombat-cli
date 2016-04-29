@@ -7,8 +7,8 @@ updater({pkg: pkg}).notify();
 
 var yargs = require('yargs')
 	.option('registry', {
-		description: 'url of the registry to use',
-		default: 'https://registry.npmjs.org'
+		description: 'the registry configuration to use',
+		default: 'default'
 	})
 	.help('help')
 	.version(function() { return require('../package').version; })

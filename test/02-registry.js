@@ -55,6 +55,31 @@ describe('registry client', function()
 				done();
 			});
 		});
+
+		it('passes along a body parameter', function(done)
+		{
+			var expected = {
+				url: 'https://api.npmjs.org/foo',
+				method: 'POST',
+				json: { data: 'yes' },
+			};
+
+			var requestSpy = sinon.stub();
+			requestSpy.yields(null, 'response', 'body');
+
+			var reg = Registry();
+			reg.requestfunc = requestSpy;
+
+			reg.anonymous({ method: 'POST', uri: '/foo', json: { data: 'yes' } }, function(err, res, body)
+			{
+				demand(err).not.exist();
+				res.must.equal('response');
+				body.must.equal('body');
+				requestSpy.calledWith(expected).must.be.true();
+
+				done();
+			});
+		});
 	});
 
 	describe('authed()', function()
@@ -94,6 +119,36 @@ describe('registry client', function()
 			reg.requestfunc = requestSpy;
 
 			reg.authed({ method: 'GET', uri: '/foo' }, function(err, res, body)
+			{
+				demand(err).not.exist();
+				res.must.equal('response');
+				body.must.equal('body');
+				requestSpy.calledWith(expected).must.be.true();
+
+				done();
+			});
+		});
+
+		it('passes along a body parameter', function(done)
+		{
+			var expected = {
+				url: 'https://api.npmjs.org/foo',
+				method: 'GET',
+				json: { data: 'yes' },
+				auth: { bearer: 'i-am-a-token' },
+			};
+
+			var requestSpy = sinon.stub();
+			requestSpy.yields(null, 'response', 'body');
+
+			var authstub = sinon.stub();
+			authstub.returns('i-am-a-token');
+
+			var reg = Registry();
+			reg.getAuthToken = authstub;
+			reg.requestfunc = requestSpy;
+
+			reg.authed({ method: 'GET', uri: '/foo', body: { data: 'yes' } }, function(err, res, body)
 			{
 				demand(err).not.exist();
 				res.must.equal('response');
