@@ -1,5 +1,6 @@
 var
 	chalk    = require('chalk'),
+	Table    = require('cli-table2'),
 	Registry = require('../lib/registry'),
 	report   = require('../lib/report')
 	;
@@ -12,11 +13,6 @@ function hooks(argv)
 
 hooks.add = function add(argv)
 {
-	report.success('hook add', 'hooking ' + chalk.yellow(argv.pkg) +
-		' to ' + chalk.yellow(argv.url) +
-		' with shared secret ' + chalk.red(argv.secret)
-	);
-
 	var reg = new Registry(argv);
 	var opts = {
 		method: 'POST',
@@ -36,8 +32,10 @@ hooks.add = function add(argv)
 		if (!hook || res.statusCode < 200 || res.statusCode >= 400)
 			return report.failure('hook add', res.statusCode + ' ' + JSON.stringify(hook));
 
-
-		report.success('+', hook.name + ' ➜ ' + hook.endpoint);
+		if (argv.json)
+			console.log(JSON.stringify(hook, null, 4));
+		else
+			report.success('+', hook.name + ' ➜ ' + hook.endpoint);
 	});
 };
 
@@ -59,14 +57,15 @@ hooks.rm = function rm(argv)
 			return report.failure('hook rm', res.statusCode + ' ' + JSON.stringify(hook));
 
 		// TODO assumption here is that the body of the response is the updated hook
-		report.success('–', hook.name + ' ✘ ' + hook.endpoint);
+		if (argv.json)
+			console.log(JSON.stringify(hook, null, 4));
+		else
+			report.success('–', hook.name + ' ✘ ' + hook.endpoint);
 	});
 };
 
 hooks.ls = function ls(argv)
 {
-
-
 	var reg = new Registry(argv);
 	var uri = '/v1/hooks/hook';
 	if (argv.pkg)
@@ -80,8 +79,36 @@ hooks.ls = function ls(argv)
 			return report.failure('hook ls', res.statusCode + ' ' + JSON.stringify(body));
 
 		// body.objects, body.total body.urls doesnt not exist yet.
-		// TODO format the response once we know what it looks like
-		report.success('hook ls', '\n' + JSON.stringify(body.objects,null,'  '));
+		if (argv.json)
+			console.log(JSON.stringify(body.objects, null, 4));
+		else
+		{
+			if (body.objects.length === 0)
+			{
+				report.success('hooks', 'you do not have any hooks configured yet.');
+				return;
+			}
+
+			if (body.objects.length === 1)
+				report.success('hooks', 'you have one hook');
+			else
+				report.success('hooks', 'you have ' + body.objects.length + ' hooks');
+
+			var table = new Table({ head: ['id', 'package', 'endpoint', 'status'], });
+			body.objects.forEach(function eachHook(hook)
+			{
+				table.push([
+						{rowSpan: 2, content: hook.id},
+						hook.name,
+						hook.endpoint,
+						hook.status]);
+				if (hook.delivered)
+					table.push('last trigger', hook.last_delivery, hook.response_code);
+				else
+					table.push(['last trigger', {colSpan:2,content:'not yet triggered'}]);
+			});
+			console.log(table.toString());
+		}
 	});
 };
 
@@ -106,8 +133,13 @@ hooks.update = function update(argv)
 		if (!hook || res.statusCode < 200 || res.statusCode >= 400)
 			return report.failure('hook update', res.statusCode + ' ' + JSON.stringify(hook));
 
-		// TODO assumption here is that the body of the response is the updated hook
-		report.success('+', hook.name + ' ➜ ' + hook.endpoint);
+		if (argv.json)
+			console.log(JSON.stringify(hook, null, 4));
+		else
+		{
+			// TODO assumption here is that the body of the response is the updated hook
+			report.success('+', hook.name + ' ➜ ' + hook.endpoint);
+		}
 	});
 };
 
@@ -126,8 +158,13 @@ hooks.test = function test(argv)
 		if (!body || res.statusCode < 200 || res.statusCode >= 400)
 			return report.failure('hook test', res.statusCode + ' ' + JSON.stringify(body));
 
-		// TODO format the response
-		report.success('hook test', JSON.stringify(body));
+		if (argv.json)
+			console.log(JSON.stringify(body, null, 4));
+		else
+		{
+			// TODO format the response
+			report.success('hook test', JSON.stringify(body));
+		}
 	});
 };
 

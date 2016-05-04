@@ -7,8 +7,15 @@ updater({pkg: pkg}).notify();
 
 var yargs = require('yargs')
 	.option('registry', {
+		alias: 'r',
 		description: 'the registry configuration to use',
 		default: 'default'
+	})
+	.option('json', {
+		alias: 'j',
+		description: 'send output as json',
+		type: 'boolean',
+		default: false,
 	})
 	.help('help')
 	.version(function() { return require('../package').version; })
