@@ -94,14 +94,14 @@ hooks.ls = function ls(argv)
 			else
 				report.success('hooks', 'you have ' + body.objects.length + ' hooks');
 
-			var table = new Table({ head: ['id', 'package', 'endpoint', 'status'], });
+			var table = new Table({ head: ['id', 'type', 'target', 'endpoint'], });
 			body.objects.forEach(function eachHook(hook)
 			{
 				table.push([
 						{rowSpan: 2, content: hook.id},
+						hook.type,
 						hook.name,
-						hook.endpoint,
-						hook.status]);
+						hook.endpoint]);
 				if (hook.delivered)
 				{
 					table.push([{ colSpan: 2, content: 'triggered ' + hook.last_delivery}, hook.response_code]);
