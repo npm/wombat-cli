@@ -41,8 +41,6 @@ hooks.add = function add(argv)
 
 hooks.rm = function rm(argv)
 {
-	// TODO match with service
-	report.success('hook rm', 'un-hooking ' + chalk.yellow(argv.id));
 	var reg = new Registry(argv);
 	var opts = {
 		method: 'DELETE',
@@ -56,7 +54,6 @@ hooks.rm = function rm(argv)
 		if (!hook || res.statusCode < 200 || res.statusCode >= 400)
 			return report.failure('hook rm', res.statusCode + ' ' + JSON.stringify(hook));
 
-		// TODO assumption here is that the body of the response is the updated hook
 		if (argv.json)
 			console.log(JSON.stringify(hook, null, 4));
 		else
@@ -116,8 +113,6 @@ hooks.ls = function ls(argv)
 
 hooks.update = function update(argv)
 {
-	// TODO match with service
-	report.success('hook updated', 'hook id ' + chalk.yellow(argv.id));
 	var reg = new Registry(argv);
 	var opts = {
 		method: 'PUT',
@@ -139,7 +134,6 @@ hooks.update = function update(argv)
 			console.log(JSON.stringify(hook, null, 4));
 		else
 		{
-			// TODO assumption here is that the body of the response is the updated hook
 			report.success('+', hook.name + ' ➜ ' + hook.endpoint);
 		}
 	});
