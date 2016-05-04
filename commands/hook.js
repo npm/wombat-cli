@@ -12,7 +12,6 @@ function hooks(argv)
 
 hooks.add = function add(argv)
 {
-	// TODO match with service
 	report.success('hook add', 'hooking ' + chalk.yellow(argv.pkg) +
 		' to ' + chalk.yellow(argv.url) +
 		' with shared secret ' + chalk.red(argv.secret)
@@ -37,7 +36,7 @@ hooks.add = function add(argv)
 		if (!hook || res.statusCode < 200 || res.statusCode >= 400)
 			return report.failure('hook add', res.statusCode + ' ' + JSON.stringify(hook));
 
-		// TODO assumption here is that the body of the response is the updated hook
+
 		report.success('+', hook.name + ' ➜ ' + hook.endpoint);
 	});
 };
@@ -66,6 +65,8 @@ hooks.rm = function rm(argv)
 
 hooks.ls = function ls(argv)
 {
+
+
 	var reg = new Registry(argv);
 	var uri = '/v1/hooks/hook';
 	if (argv.pkg)
