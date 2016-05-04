@@ -103,9 +103,11 @@ hooks.ls = function ls(argv)
 						hook.endpoint,
 						hook.status]);
 				if (hook.delivered)
-					table.push('last trigger', hook.last_delivery, hook.response_code);
+				{
+					table.push([{ colSpan: 2, content: 'triggered ' + hook.last_delivery}, hook.response_code]);
+				}
 				else
-					table.push(['last trigger', {colSpan:2,content:'not yet triggered'}]);
+					table.push([{colSpan:3,content:'never triggered'}]);
 			});
 			console.log(table.toString());
 		}
@@ -115,13 +117,13 @@ hooks.ls = function ls(argv)
 hooks.update = function update(argv)
 {
 	// TODO match with service
-	report.success('hook update', 'updating hook id ' + chalk.yellow(argv.id));
+	report.success('hook updated', 'hook id ' + chalk.yellow(argv.id));
 	var reg = new Registry(argv);
 	var opts = {
 		method: 'PUT',
 		uri: '/v1/hooks/hook/' + encodeURIComponent(argv.id),
 		body: {
-			endpoint:    argv.url,
+			endpoint: argv.url,
 			secret: argv.secret
 		}
 	};
