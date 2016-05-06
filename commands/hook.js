@@ -13,6 +13,14 @@ function hooks(argv)
 
 hooks.add = function add(argv)
 {
+        var pkg = argv.pkg+''
+        // if the package is just a scope name set type to scope and save it!
+	// @npm
+	// not @npm/foo
+	if(pkg.indexOf('@') === 0 && pkg.indexOf('/') === -1)  {
+	  argv.type = 'scope'
+	}
+
 	var reg = new Registry(argv);
 	var opts = {
 		method: 'POST',
