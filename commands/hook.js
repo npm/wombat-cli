@@ -1,5 +1,6 @@
 var
 	chalk    = require('chalk'),
+	moment   = require('moment'),
 	Table    = require('cli-table2'),
 	Registry = require('../lib/registry'),
 	report   = require('../lib/report')
@@ -110,10 +111,13 @@ hooks.ls = function ls(argv)
 						hook.endpoint]);
 				if (hook.delivered)
 				{
-					table.push([{ colSpan: 2, content: 'triggered ' + hook.last_delivery}, hook.response_code]);
+					table.push([{
+						colSpan: 2,
+						content: 'triggered ' + moment(hook.last_delivery).format('lll')},
+						hook.response_code]);
 				}
 				else
-					table.push([{colSpan:3,content:'never triggered'}]);
+					table.push([{colSpan:3, content:'never triggered'}]);
 			});
 			console.log(table.toString());
 		}
