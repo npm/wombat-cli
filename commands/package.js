@@ -27,27 +27,32 @@ function builder(yargs)
 
 function view(argv)
 {
+	argv._handled = true;
 	var reg = argv.reg || new Registry(argv);
 	var opts = {
-		method: 'GET',
-		uri: '/' + encodePackageName(argv.package),
+		uri: encodePackageName(argv.package),
 		legacy: true
 	};
 
 	reg.authed(opts, function(err, response, pkg)
 	{
 		if (err)
-			return report.failure('view', err.message);
+			return report.failure('package', err.message);
 		if (response.statusCode === 404)
-			return report.success('view', 'package ' + argv.package + ' was not found.');
+			return report.success('package', 'package ' + argv.package + ' was not found.');
 		if (!pkg)
-			return report.failure('view', 'unexpected registry response! ' + JSON.stringify(pkg));
+			return report.failure('package', 'unexpected registry response! ' + JSON.stringify(pkg));
 
 		require('normalize-package-data')(pkg);
 
+		if (argv.json)
+		{
+			console.log(JSON.stringify(hook, null, 4));
+			return;
+		}
+
 		var latest = pkg['dist-tags'].latest;
 		var version = pkg.versions[latest];
-
 
 		console.log('');
 		console.log(chalk.blue(pkg.name) + '@' + chalk.blue(latest));
@@ -94,7 +99,11 @@ function view(argv)
 
 		console.log('');
 		console.log(chalk.blue('versions & dist tags:'));
-		var versions = Object.keys(pkg.versions);
+		var versions = [];
+		Object.keys(pkg.versions).forEach(function(v)
+		{
+			versions.push(chalk.yellow(v) + ': ' + moment(pkg.time[v]).format('lll'));
+		});
 		if (versions.length === 1)
 			console.log('1 version published');
 		else if (versions.length > 10)
@@ -120,7 +129,6 @@ function view(argv)
 			console.log(markdown.render(pkg.readme));
 		}
 	});
-	argv._handled = true;
 }
 
 module.exports = {
