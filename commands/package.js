@@ -47,7 +47,7 @@ function view(argv)
 
 		if (argv.json)
 		{
-			console.log(JSON.stringify(hook, null, 4));
+			report.json(pkg);
 			return;
 		}
 

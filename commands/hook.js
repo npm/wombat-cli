@@ -43,7 +43,7 @@ hooks.add = function add(argv)
 			return report.failure('hook add', res.statusCode + ' ' + JSON.stringify(hook));
 
 		if (argv.json)
-			console.log(JSON.stringify(hook, null, 4));
+			report.json(hook);
 		else
 			report.success('+', hook.name + ' ➜ ' + hook.endpoint);
 	});
@@ -65,7 +65,7 @@ hooks.rm = function rm(argv)
 			return report.failure('hook rm', res.statusCode + ' ' + JSON.stringify(hook));
 
 		if (argv.json)
-			console.log(JSON.stringify(hook, null, 4));
+			report.json(hook);
 		else
 			report.success('–', hook.name + ' ✘ ' + hook.endpoint);
 	});
@@ -87,7 +87,7 @@ hooks.ls = function ls(argv)
 
 		// body.objects, body.total body.urls doesnt not exist yet.
 		if (argv.json)
-			console.log(JSON.stringify(body.objects, null, 4));
+			report.json(body.objects);
 		else
 		{
 			if (body.objects.length === 0)
@@ -144,7 +144,7 @@ hooks.update = function update(argv)
 			return report.failure('hook update', res.statusCode + ' ' + JSON.stringify(hook));
 
 		if (argv.json)
-			console.log(JSON.stringify(hook, null, 4));
+			report.json(hook);
 		else
 		{
 			report.success('+', hook.name + ' ➜ ' + hook.endpoint);
@@ -168,7 +168,7 @@ hooks.test = function test(argv)
 			return report.failure('hook test', res.statusCode + ' ' + JSON.stringify(body));
 
 		if (argv.json)
-			console.log(JSON.stringify(body, null, 4));
+			report.json(body);
 		else
 		{
 			// TODO format the response
