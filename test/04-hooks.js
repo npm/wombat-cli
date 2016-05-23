@@ -31,7 +31,7 @@ describe('hook command', function()
 
 		it('exports the expected commands', function()
 		{
-			['ls', 'add', 'update', 'rm', 'test'].forEach(function(cmd)
+			['ls', 'add', 'update', 'rm'].forEach(function(cmd)
 			{
 				hook.handler.must.have.property(cmd);
 				hook.handler[cmd].must.be.a.function();

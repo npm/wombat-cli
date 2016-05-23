@@ -78,7 +78,6 @@ Commands:
   add <pkg> <url> <secret>    add a hook to the named package
   update <id> <url> [secret]  update an existing hook
   rm <id>                     remove a hook
-  test <id>                   test a hook
 
 Examples:
   wombat hook add lodash https://example.com/webhook my-shared-secret

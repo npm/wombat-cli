@@ -151,31 +151,6 @@ hooks.update = function update(argv)
 	});
 };
 
-hooks.test = function test(argv)
-{
-	// TODO match with service
-	report.success('hook test', 'testing hook id ' + chalk.yellow(argv.id));
-
-	var reg = new Registry(argv);
-	var uri = '/v1/hooks/hook/' + encodeURIComponent(argv.pkg) + '/test';
-
-	reg.authed({ uri: uri }, function(err, res, body)
-	{
-		if (err)
-			return report.failure('hook test', err.message);
-		if (!body || res.statusCode < 200 || res.statusCode >= 400)
-			return report.failure('hook test', res.statusCode + ' ' + JSON.stringify(body));
-
-		if (argv.json)
-			report.json(body);
-		else
-		{
-			// TODO format the response
-			report.success('hook test', JSON.stringify(body));
-		}
-	});
-};
-
 function noop() {}
 
 function builder(yargs)
@@ -185,7 +160,6 @@ function builder(yargs)
 		.command('add <pkg> <url> <secret>', 'add a hook to the named package', noop, hooks.add)
 		.command('update <id> <url> [secret]', 'update an existing hook', noop, hooks.update)
 		.command('rm <id>', 'remove a hook', noop, hooks.rm)
-		.command('test <id>', 'test a hook', noop, hooks.test)
 		.example('$0 hook add lodash https://example.com/ my-shared-secret')
 		.example('$0 hook ls lodash')
 		.example('$0 hook rm id-ers83f')
