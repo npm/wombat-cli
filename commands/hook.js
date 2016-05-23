@@ -1,5 +1,4 @@
 var
-	chalk    = require('chalk'),
 	moment   = require('moment'),
 	Table    = require('cli-table2'),
 	Registry = require('../lib/registry'),
