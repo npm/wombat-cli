@@ -73,9 +73,9 @@ hooks.rm = function rm(argv)
 hooks.ls = function ls(argv)
 {
 	var reg = new Registry(argv);
-	var uri = '/v1/hooks/hook';
+	var uri = '/v1/hooks';
 	if (argv.pkg)
-		uri += '/' + encodeURIComponent(argv.pkg);
+		uri += '?package=' + encodeURIComponent(argv.pkg);
 
 	reg.authed({ uri: uri }, function(err, res, body)
 	{
@@ -84,7 +84,6 @@ hooks.ls = function ls(argv)
 		if (!body || res.statusCode < 200 || res.statusCode >= 400)
 			return report.failure('hook ls', res.statusCode + ' ' + JSON.stringify(body));
 
-		// body.objects, body.total body.urls doesnt not exist yet.
 		if (argv.json)
 			console.log(JSON.stringify(body.objects, null, 4));
 		else
