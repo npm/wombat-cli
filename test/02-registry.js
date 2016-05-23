@@ -4,7 +4,8 @@
 var
 	demand   = require('must'),
 	sinon    = require('sinon'),
-	Registry = require('../lib/registry')
+	Registry = require('../lib/registry'),
+	Config   = require('../lib/config')
 	;
 
 describe('registry client', function()
@@ -34,9 +35,10 @@ describe('registry client', function()
 		it('calls request with the passed uri', function(done)
 		{
 			var reg = Registry();
+			reg.config = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
 
 			var expected = {
-				url: 'https://api.npmjs.org/foo',
+				url: 'https://registry.npmjs.org/foo',
 				method: 'GET',
 				json: true,
 			};
@@ -50,7 +52,7 @@ describe('registry client', function()
 				demand(err).not.exist();
 				res.must.equal('response');
 				body.must.equal('body');
-				spy.calledWith(expected).must.be.true();
+				spy.args[0][0].must.eql(expected);
 
 				done();
 			});
@@ -59,7 +61,7 @@ describe('registry client', function()
 		it('passes along a body parameter', function(done)
 		{
 			var expected = {
-				url: 'https://api.npmjs.org/foo',
+				url: 'https://registry.npmjs.org/foo',
 				method: 'POST',
 				json: { data: 'yes' },
 			};
@@ -68,6 +70,7 @@ describe('registry client', function()
 			requestSpy.yields(null, 'response', 'body');
 
 			var reg = Registry();
+			reg.config = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
 			reg.requestfunc = requestSpy;
 
 			reg.anonymous({ method: 'POST', uri: '/foo', json: { data: 'yes' } }, function(err, res, body)
@@ -90,6 +93,7 @@ describe('registry client', function()
 			authstub.returns(null);
 
 			var reg = Registry();
+			reg.config = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
 			reg.getAuthToken = authstub;
 
 			reg.authed({ method: 'GET', uri: '/foo' }, function(err, res, body)
@@ -103,7 +107,7 @@ describe('registry client', function()
 		it('calls request with the passed uri', function(done)
 		{
 			var expected = {
-				url: 'https://api.npmjs.org/foo',
+				url: 'https://registry.npmjs.org/-/npm/foo',
 				method: 'GET',
 				json: true,
 				auth: { bearer: 'i-am-a-token' },
@@ -115,6 +119,7 @@ describe('registry client', function()
 			authstub.returns('i-am-a-token');
 
 			var reg = Registry();
+			reg.config = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
 			reg.getAuthToken = authstub;
 			reg.requestfunc = requestSpy;
 
@@ -132,7 +137,7 @@ describe('registry client', function()
 		it('passes along a body parameter', function(done)
 		{
 			var expected = {
-				url: 'https://api.npmjs.org/foo',
+				url: 'https://registry.npmjs.org/-/npm/foo',
 				method: 'GET',
 				json: { data: 'yes' },
 				auth: { bearer: 'i-am-a-token' },
@@ -145,6 +150,7 @@ describe('registry client', function()
 			authstub.returns('i-am-a-token');
 
 			var reg = Registry();
+			reg.config = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
 			reg.getAuthToken = authstub;
 			reg.requestfunc = requestSpy;
 

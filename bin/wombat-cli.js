@@ -13,7 +13,7 @@ var yargs = require('yargs')
 	})
 	.option('json', {
 		alias: 'j',
-		description: 'send output as json',
+		description: 'print output as json',
 		type: 'boolean',
 		default: false,
 	})

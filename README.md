@@ -34,9 +34,10 @@ Commands:
   whoami             the username you are authenticated as
 
 Options:
-  --registry  the registry configuration to use             [default: "default"]
-  --help      Show help                                                [boolean]
-  --version   show version information                                 [boolean]
+  --registry, -r  the registry configuration to use         [default: "default"]
+  --json, -j      print output as json                [boolean] [default: false]
+  --help          Show help                                            [boolean]
+  --version       show version information                             [boolean]
 ```
 
 Help is available for each of the supported commands.
@@ -50,7 +51,7 @@ Wombat reads its config from the file `~/.wombatrc`. This file is parsed as [TOM
 ```toml
 [default]
 registry = "https://registry.npmjs.org"
-api = "https://api.npmjs.org"
+api = "https://registry.npmjs.org/-/npm"
 ```
 
 You can add sections for other registries to talk to and point wombat to them using the name of the config section, or change the default to a registry you use more often. For example:
@@ -58,7 +59,7 @@ You can add sections for other registries to talk to and point wombat to them us
 ```toml
 [default]
 registry = "https://registry.npmjs.org"
-api = "https://api.npmjs.org"
+api = "https://registry.npmjs.org/-/npm"
 
 [enterprise]
 registry = "https://npm-enterprise.private.npmjs.com"
@@ -70,7 +71,7 @@ Then run something like `wombat -r enterprise package @secret/private-package`
 ## web hooks
 
 ```
-/usr/local/bin/wombat hook
+wombat hook
 
 Commands:
   ls [pkg]                    list your hooks
@@ -80,10 +81,10 @@ Commands:
   test <id>                   test a hook
 
 Examples:
-  /usr/local/bin/wombat hook add lodash
-  https://example.com/ my-shared-secret
-  /usr/local/bin/wombat hook ls lodash
-  /usr/local/bin/wombat hook rm id-ers83f
+  wombat hook add lodash https://example.com/webhook my-shared-secret
+  wombat hook ls lodash
+  wombat hook ls --json
+  wombat hook rm id-ers83f
 ```
 
 ## viewing packages
@@ -94,6 +95,6 @@ Examples:
 
 Find out who you are logged in as for the registry you're using.
 
-## license
+## License
 
 ISC probably eventually. For the moment unreleased.

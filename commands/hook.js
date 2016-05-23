@@ -1,5 +1,6 @@
 var
 	chalk    = require('chalk'),
+	moment   = require('moment'),
 	Table    = require('cli-table2'),
 	Registry = require('../lib/registry'),
 	report   = require('../lib/report')
@@ -13,8 +14,8 @@ function hooks(argv)
 
 hooks.add = function add(argv)
 {
-        var pkg = argv.pkg + '';
-        // if the package is just a scope name set type to scope and save it!
+    var pkg = argv.pkg + '';
+    // if the package is just a scope name set type to scope and save it!
 	// @npm
 	// not @npm/foo
 	if(pkg.indexOf('@') === 0 && pkg.indexOf('/') === -1)
@@ -42,7 +43,7 @@ hooks.add = function add(argv)
 			return report.failure('hook add', res.statusCode + ' ' + JSON.stringify(hook));
 
 		if (argv.json)
-			console.log(JSON.stringify(hook, null, 4));
+			report.json(hook);
 		else
 			report.success('+', hook.name + ' ➜ ' + hook.endpoint);
 	});
@@ -64,7 +65,7 @@ hooks.rm = function rm(argv)
 			return report.failure('hook rm', res.statusCode + ' ' + JSON.stringify(hook));
 
 		if (argv.json)
-			console.log(JSON.stringify(hook, null, 4));
+			report.json(hook);
 		else
 			report.success('–', hook.name + ' ✘ ' + hook.endpoint);
 	});
@@ -85,7 +86,7 @@ hooks.ls = function ls(argv)
 			return report.failure('hook ls', res.statusCode + ' ' + JSON.stringify(body));
 
 		if (argv.json)
-			console.log(JSON.stringify(body.objects, null, 4));
+			report.json(body.objects);
 		else
 		{
 			if (body.objects.length === 0)
@@ -109,10 +110,13 @@ hooks.ls = function ls(argv)
 						hook.endpoint]);
 				if (hook.delivered)
 				{
-					table.push([{ colSpan: 2, content: 'triggered ' + hook.last_delivery}, hook.response_code]);
+					table.push([{
+						colSpan: 2,
+						content: 'triggered ' + moment(hook.last_delivery).format('lll')},
+						hook.response_code]);
 				}
 				else
-					table.push([{colSpan:3,content:'never triggered'}]);
+					table.push([{colSpan:3, content:'never triggered'}]);
 			});
 			console.log(table.toString());
 		}
@@ -139,7 +143,7 @@ hooks.update = function update(argv)
 			return report.failure('hook update', res.statusCode + ' ' + JSON.stringify(hook));
 
 		if (argv.json)
-			console.log(JSON.stringify(hook, null, 4));
+			report.json(hook);
 		else
 		{
 			report.success('+', hook.name + ' ➜ ' + hook.endpoint);
@@ -163,7 +167,7 @@ hooks.test = function test(argv)
 			return report.failure('hook test', res.statusCode + ' ' + JSON.stringify(body));
 
 		if (argv.json)
-			console.log(JSON.stringify(body, null, 4));
+			report.json(body);
 		else
 		{
 			// TODO format the response
