@@ -23,18 +23,22 @@ hooks.add = function add(argv)
 	}
 
 	// wacky way to support owner type without more args
-	if(pkg.indexOf('~') === 0) {
-		argv.pkg = pkg.replace('~','')
-		argv.type = 'owner'  
-	} else if(process.env.HOME && pkg == process.env.HOME) {
-
+	if(pkg.indexOf('~') === 0)
+	{
+		argv.pkg = pkg.replace('~','');
+		argv.type = 'owner';
+	}
+	else if(pkg === process.env.HOME)
+	{
 		// bash expands ~ and ~username to process.env.HOME
 		// no package begins with / so this is safe but wacky
-		console.error('this module name matches your home directory.\nif you intended on making an owner hook for your own username you need to escape the ~ like \\~'+process.env.USER)
-		process.exit(1)		
-	} else if(pkg.indexOf('owner:') === 0) {
-		argv.pkg = pkg.replace('owner:','')
-		argv.type = 'owner'
+		console.error('this module name matches your home directory.\nif you intended on making an owner hook for your own username you need to escape the ~ like \\~' + process.env.USER);
+		process.exit(1);
+	}
+	else if(pkg.indexOf('owner:') === 0)
+	{
+		argv.pkg = pkg.replace('owner:','');
+		argv.type = 'owner';
 	}
 
 	var reg = new Registry(argv);
