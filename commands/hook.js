@@ -13,8 +13,10 @@ function hooks(argv)
 
 hooks.add = function add(argv)
 {
-    var pkg = argv.pkg + '';
-    // if the package is just a scope name set type to scope and save it!
+	var pkg = argv.pkg + '';
+	// if the package is just a scope name set type to scope and save it!
+	var type = argv.type;
+
 	// @npm
 	// not @npm/foo
 	if(pkg.indexOf('@') === 0 && pkg.indexOf('/') === -1)
@@ -22,24 +24,7 @@ hooks.add = function add(argv)
 		argv.type = 'scope';
 	}
 
-	// wacky way to support owner type without more args
-	if(pkg.indexOf('~') === 0)
-	{
-		argv.pkg = pkg.replace('~','');
-		argv.type = 'owner';
-	}
-	else if(pkg === process.env.HOME)
-	{
-		// bash expands ~ and ~username to process.env.HOME
-		// no package begins with / so this is safe but wacky
-		console.error('this module name matches your home directory.\nif you intended on making an owner hook for your own username you need to escape the ~ like \\~' + process.env.USER);
-		process.exit(1);
-	}
-	else if(pkg.indexOf('owner:') === 0)
-	{
-		argv.pkg = pkg.replace('owner:','');
-		argv.type = 'owner';
-	}
+        if(type) argv.type = type;
 
 	var reg = new Registry(argv);
 	var opts = {
@@ -126,7 +111,7 @@ hooks.ls = function ls(argv)
 						hook.type,
 						hook.name,
 						hook.endpoint]);
-				if (hook.delivered)
+				if (hook.last_delivery)
 				{
 					table.push([{
 						colSpan: 2,
@@ -175,7 +160,13 @@ function builder(yargs)
 {
 	return yargs
 		.command('ls [pkg]', 'list your hooks', noop, hooks.ls)
-		.command('add <pkg> <url> <secret>', 'add a hook to the named package', noop, hooks.add)
+		.command('add <pkg> <url> <secret>', 'add a hook to the named package or object',function()
+		{
+			return yargs.option('type', {
+				alias: 't',
+				description:"owner, scope, and package.\nyou can hook specific packages but also objects that are related to many packages.\t@scope and package are taken care of for you, but to make an owner hook (like all packages substack maintains) don't forget --type owner"
+			});
+		}, hooks.add)
 		.command('update <id> <url> [secret]', 'update an existing hook', noop, hooks.update)
 		.command('rm <id>', 'remove a hook', noop, hooks.rm)
 		.example('$0 hook add lodash https://example.com/ my-shared-secret')
