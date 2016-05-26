@@ -13,13 +13,22 @@ function hooks(argv)
 
 hooks.add = function add(argv)
 {
-    var pkg = argv.pkg + '';
-    // if the package is just a scope name set type to scope and save it!
+	var pkg = argv.pkg + '';
+	// if the package is just a scope name set type to scope and save it!
+	var type = argv.type;
+
 	// @npm
 	// not @npm/foo
 	if(pkg.indexOf('@') === 0 && pkg.indexOf('/') === -1)
 	{
 		argv.type = 'scope';
+	}
+
+        if(type) argv.type = type;
+
+        if(type === 'scope' && pkg[0] !== '@' && pkg.length)
+	{
+		argv.pkg = '@' + argv.pkg;
 	}
 
 	var reg = new Registry(argv);
@@ -107,7 +116,7 @@ hooks.ls = function ls(argv)
 						hook.type,
 						hook.name,
 						hook.endpoint]);
-				if (hook.delivered)
+				if (hook.last_delivery)
 				{
 					table.push([{
 						colSpan: 2,
@@ -156,7 +165,13 @@ function builder(yargs)
 {
 	return yargs
 		.command('ls [pkg]', 'list your hooks', noop, hooks.ls)
-		.command('add <pkg> <url> <secret>', 'add a hook to the named package', noop, hooks.add)
+		.command('add <pkg> <url> <secret>', 'add a hook to the named package or object',function()
+		{
+			return yargs.option('type', {
+				alias: 't',
+				description:"owner, scope, and package.\nyou can hook specific packages but also objects that are related to many packages.\t@scope and package are taken care of for you, but to make an owner hook (like all packages substack maintains) don't forget --type owner"
+			});
+		}, hooks.add)
 		.command('update <id> <url> [secret]', 'update an existing hook', noop, hooks.update)
 		.command('rm <id>', 'remove a hook', noop, hooks.rm)
 		.example('$0 hook add lodash https://example.com/ my-shared-secret')
