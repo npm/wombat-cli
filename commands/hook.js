@@ -26,6 +26,11 @@ hooks.add = function add(argv)
 
         if(type) argv.type = type;
 
+        if(type === 'scope' && pkg[0] !== '@' && pkg.length)
+	{
+		argv.pkg = '@' + argv.pkg;
+	}
+
 	var reg = new Registry(argv);
 	var opts = {
 		method: 'POST',
