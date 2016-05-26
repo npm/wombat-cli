@@ -1,7 +1,7 @@
 {
   "name": "@npmcorp/wombat-cli",
   "description": "The wombat cli tool.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "C J Silverio <ceej@npmjs.com>",
   "bin": {
     "wombat": "bin/wombat-cli.js",
