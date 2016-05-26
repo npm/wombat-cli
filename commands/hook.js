@@ -19,16 +19,16 @@ hooks.add = function add(argv)
 
 	// @npm
 	// not @npm/foo
-	if(pkg.indexOf('@') === 0 && pkg.indexOf('/') === -1)
+	if ((pkg.indexOf('@') === 0 && pkg.indexOf('/') === -1) || argv.type === 'scope')
 	{
-		argv.type = 'scope';
+		type = 'scope';
 	}
 
-        if(type) argv.type = type;
+    if (type) argv.type = type;
 
-        if(type === 'scope' && pkg[0] !== '@' && pkg.length)
+    if (type === 'scope' && pkg[0] !== '@' && pkg.length)
 	{
-		argv.pkg = '@' + argv.pkg;
+		argv.pkg = '@' + pkg;
 	}
 
 	var reg = new Registry(argv);
@@ -36,10 +36,10 @@ hooks.add = function add(argv)
 		method: 'POST',
 		uri: '/v1/hooks/hook/',
 		body: {
-			type: argv.type || 'package',
-			name:   argv.pkg,
-			endpoint:    argv.url,
-			secret: argv.secret
+			type:     argv.type,
+			name:     argv.pkg,
+			endpoint: argv.url,
+			secret:   argv.secret
 		}
 	};
 
@@ -165,18 +165,21 @@ function builder(yargs)
 {
 	return yargs
 		.command('ls [pkg]', 'list your hooks', noop, hooks.ls)
-		.command('add <pkg> <url> <secret>', 'add a hook to the named package or object',function()
+		.command('add <pkg> <url> <secret>', 'add a hook to the named package or object', function buildAdd(yargs)
 		{
 			return yargs.option('type', {
-				alias: 't',
-				description:"owner, scope, and package.\nyou can hook specific packages but also objects that are related to many packages.\t@scope and package are taken care of for you, but to make an owner hook (like all packages substack maintains) don't forget --type owner"
+				alias:       't',
+				description: 'one of owner, scope, or package.\nyou can hook specific packages but also objects that are related to many packages.\t@scope and package are taken care of for you, but to make an owner hook (like all packages substack maintains) don\'t forget --type owner',
+				default:     'package'
 			});
 		}, hooks.add)
 		.command('update <id> <url> [secret]', 'update an existing hook', noop, hooks.update)
 		.command('rm <id>', 'remove a hook', noop, hooks.rm)
-		.example('$0 hook add lodash https://example.com/ my-shared-secret')
-		.example('$0 hook ls lodash')
-		.example('$0 hook rm id-ers83f')
+		.usage('wombat hook [options]\nadd or change web hooks')
+		.example('wombat hook add lodash https://example.com/ my-shared-secret')
+		.example('wombat hook add --type=owner substack https://example.com/ my-shared-secret')
+		.example('wombat hook ls lodash')
+		.example('wombat hook rm id-ers83f')
 		.demand(2)
 	;
 }
