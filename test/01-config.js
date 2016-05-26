@@ -3,14 +3,15 @@
 
 var
 	demand = require('must'),
-	Config = require('../lib/config')
+	Config = require('../lib/config'),
+	assign = require('lodash.assign')
 	;
 
 describe('configuration', function()
 {
 	it('exports a constructor', function()
 	{
-		var cfg = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+		var cfg = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 		cfg.must.be.instanceof(Config);
 		cfg.must.have.property('config');
 		cfg.get.must.be.a.function();
@@ -19,20 +20,20 @@ describe('configuration', function()
 
 	it('makes one even without the new', function()
 	{
-		var cfg = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+		var cfg = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 		cfg.must.be.instanceof(Config);
 		cfg.must.have.property('config');
 	});
 
 	it('the constructor sets a section', function()
 	{
-		var cfg = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+		var cfg = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 		cfg.section.must.equal('default');
 	});
 
 	it('load() returns the named section', function()
 	{
-		var cfg = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+		var cfg = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 		cfg.load.must.be.a.function();
 		var chunk = cfg.load('default');
 		chunk.must.be.an.object();
@@ -44,14 +45,14 @@ describe('configuration', function()
 
 	it('get() returns the key for the named value', function()
 	{
-		var cfg = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+		var cfg = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 		var value = cfg.get('api');
 		value.must.equal('https://registry.npmjs.org/-/npm');
 	});
 
 	it('set() sets a value in the current config section', function()
 	{
-		var cfg = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+		var cfg = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 		cfg.set('username', 'dimwitflathead');
 		cfg.config.default.must.have.property('username');
 		cfg.config.default.username.must.equal('dimwitflathead');
@@ -61,7 +62,7 @@ describe('configuration', function()
 
 	it('write() is a thing that exists', function()
 	{
-		var cfg = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+		var cfg = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 		cfg.must.have.property('write');
 		cfg.write.must.be.a.function();
 	});

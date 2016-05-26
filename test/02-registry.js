@@ -2,6 +2,7 @@
 'use strict';
 
 var
+	assign   = require('lodash.assign'),
 	demand   = require('must'),
 	sinon    = require('sinon'),
 	Registry = require('../lib/registry'),
@@ -35,7 +36,7 @@ describe('registry client', function()
 		it('calls request with the passed uri', function(done)
 		{
 			var reg = Registry();
-			reg.config = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+			reg.config = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 
 			var expected = {
 				url: 'https://registry.npmjs.org/foo',
@@ -70,7 +71,7 @@ describe('registry client', function()
 			requestSpy.yields(null, 'response', 'body');
 
 			var reg = Registry();
-			reg.config = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+			reg.config = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 			reg.requestfunc = requestSpy;
 
 			reg.anonymous({ method: 'POST', uri: '/foo', json: { data: 'yes' } }, function(err, res, body)
@@ -93,7 +94,7 @@ describe('registry client', function()
 			authstub.returns(null);
 
 			var reg = Registry();
-			reg.config = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+			reg.config = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 			reg.getAuthToken = authstub;
 
 			reg.authed({ method: 'GET', uri: '/foo' }, function(err, res, body)
@@ -119,7 +120,7 @@ describe('registry client', function()
 			authstub.returns('i-am-a-token');
 
 			var reg = Registry();
-			reg.config = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+			reg.config = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 			reg.getAuthToken = authstub;
 			reg.requestfunc = requestSpy;
 
@@ -150,7 +151,7 @@ describe('registry client', function()
 			authstub.returns('i-am-a-token');
 
 			var reg = Registry();
-			reg.config = new Config({ registry: 'default' }, Object.assign({}, Config.DEFAULTS));
+			reg.config = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
 			reg.getAuthToken = authstub;
 			reg.requestfunc = requestSpy;
 
