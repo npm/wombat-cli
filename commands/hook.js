@@ -31,7 +31,7 @@ hooks.add = function add(argv)
 		argv.pkg = '@' + pkg;
 	}
 
-	var reg = new Registry(argv);
+	var reg = argv.reg || new Registry(argv);
 	var opts = {
 		method: 'POST',
 		uri: '/v1/hooks/hook/',
@@ -81,7 +81,7 @@ hooks.rm = function rm(argv)
 
 hooks.ls = function ls(argv)
 {
-	var reg = new Registry(argv);
+	var reg = argv.reg || new Registry(argv);
 	var uri = '/v1/hooks';
 	if (argv.pkg)
 		uri += '?package=' + encodeURIComponent(argv.pkg);
