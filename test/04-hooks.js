@@ -2,11 +2,10 @@
 'use strict';
 
 var
-	demand  = require('must'),
+	demand   = require('must'),
 	Registry = require('../lib/registry'),
-	Report   = require('../lib/report'),
 	sinon    = require('sinon'),
-	hook    = require('../commands/hook')
+	hook     = require('../commands/hook')
 	;
 
 describe('hook command', function()
@@ -69,7 +68,7 @@ describe('hook command', function()
 			var reg = Registry();
 			var stub = sinon.stub(reg, 'authed');
 			stub.yields(null, { statusCode: 200 }, { id: 'foo', name: 'bar', endpoint: 'baz' });
-			var payload = { reg: reg, pkg: 'foo', type: 'package', url: 'url', secret: 'secret' }
+			var payload = { reg: reg, pkg: 'foo', type: 'package', url: 'url', secret: 'secret' };
 
 			hook.handler.add(payload);
 
