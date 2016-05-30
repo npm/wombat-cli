@@ -4,6 +4,7 @@
 var
 	demand   = require('must'),
 	Registry = require('../lib/registry'),
+	Report   = require('../lib/report'),
 	sinon    = require('sinon'),
 	hook     = require('../commands/hook')
 	;
@@ -55,6 +56,7 @@ describe('hook command', function()
 			stub.calledWith({ uri: '/v1/hooks' }).must.be.true();
 			stub.restore();
 			spy.called.must.be.true();
+			spy.calledWith('\u001b[33mhooks\u001b[39m you do not have any hooks configured yet.').must.be.true();
 			spy.restore();
 		});
 	});
@@ -64,7 +66,7 @@ describe('hook command', function()
 	{
 		it('calls Registry.authed', function()
 		{
-			var spy = sinon.spy(console, 'log');
+			var spy = sinon.spy(Report, 'success');
 			var reg = Registry();
 			var stub = sinon.stub(reg, 'authed');
 			stub.yields(null, { statusCode: 200 }, { id: 'foo', name: 'bar', endpoint: 'baz' });
@@ -85,22 +87,60 @@ describe('hook command', function()
 			}).must.be.true();
 			stub.restore();
 			spy.called.must.be.true();
+			spy.calledWith('+', 'bar ➜ baz').must.be.true();
 			spy.restore();
 		});
 	});
 
 	describe('hook.update', function()
 	{
-		it('has tests');
+		it('calls Registry.authed', function()
+		{
+			var spy = sinon.spy(Report, 'success');
+			var reg = Registry();
+			var stub = sinon.stub(reg, 'authed');
+			stub.yields(null, { statusCode: 200 }, { id: 'foo', name: 'bar', endpoint: 'baz' });
+			var payload = { reg: reg, id: 'wat', url: 'url', secret: 'secret' };
+
+			hook.handler.update(payload);
+
+			stub.calledOnce.must.be.true();
+			stub.calledWith({
+				method: 'PUT',
+				uri: '/v1/hooks/hook/wat',
+				body: {
+					endpoint: payload.url,
+					secret: payload.secret,
+				}
+			}).must.be.true();
+			stub.restore();
+			spy.called.must.be.true();
+			spy.calledWith('+', 'bar ➜ baz').must.be.true();
+			spy.restore();
+		});
 	});
 
 	describe('hook.rm', function()
 	{
-		it('has tests');
-	});
+		it('calls Registry.authed', function()
+		{
+			var spy = sinon.spy(Report, 'success');
+			var reg = Registry();
+			var stub = sinon.stub(reg, 'authed');
+			stub.yields(null, { statusCode: 200 }, { id: 'foo', name: 'watched', endpoint: 'no more' });
+			var payload = { reg: reg, id: 'wat', url: 'url', secret: 'secret' };
 
-	describe('hook.test', function()
-	{
-		it('has tests');
+			hook.handler.rm(payload);
+
+			stub.calledOnce.must.be.true();
+			stub.calledWith({
+				method: 'DELETE',
+				uri: '/v1/hooks/hook/wat',
+			}).must.be.true();
+			stub.restore();
+			spy.called.must.be.true();
+			spy.calledWith('–', 'watched ✘ no more').must.be.true();
+			spy.restore();
+		});
 	});
 });

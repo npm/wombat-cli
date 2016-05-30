@@ -59,7 +59,7 @@ hooks.add = function add(argv)
 
 hooks.rm = function rm(argv)
 {
-	var reg = new Registry(argv);
+	var reg = argv.reg || new Registry(argv);
 	var opts = {
 		method: 'DELETE',
 		uri: '/v1/hooks/hook/' + encodeURIComponent(argv.id),
@@ -133,7 +133,7 @@ hooks.ls = function ls(argv)
 
 hooks.update = function update(argv)
 {
-	var reg = new Registry(argv);
+	var reg = argv.reg || new Registry(argv);
 	var opts = {
 		method: 'PUT',
 		uri: '/v1/hooks/hook/' + encodeURIComponent(argv.id),
