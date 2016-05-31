@@ -96,4 +96,4 @@ Find out who you are logged in as for the registry you're using.
 
 ## License
 
-ISC probably eventually. For the moment unreleased.
+ISC
