@@ -1,6 +1,6 @@
 # wombat-cli
 
-[![Build Status](https://travis-ci.com/npm/wombat-cli.svg?token=DqHFWFDrBinQd9xV4xvQ&branch=master)](https://travis-ci.com/npm/wombat-cli) [![Coverage Status](https://coveralls.io/repos/github/npm/wombat-cli/badge.svg?branch=master&t=5zRfPy)](https://coveralls.io/github/npm/wombat-cli?branch=master)
+[![Build Status](https://travis-ci.org/npm/wombat-cli.svg?branch=master)](https://travis-ci.org/npm/wombat-cli) [![Coverage Status](https://coveralls.io/repos/github/npm/wombat-cli/badge.svg?branch=master)](https://coveralls.io/github/npm/wombat-cli?branch=master)
 
 The wombat cli tool.
 
