@@ -40,6 +40,9 @@
   "homepage": "https://github.com/npm/wombat-cli#readme",
   "keywords": [],
   "license": "ISC",
+  "engines": {
+    "node": ">=0.10"
+  },
   "main": "index.js",
   "repository": {
     "type": "git",
