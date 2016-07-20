@@ -35,10 +35,11 @@
     "mocha": "~2.5.3",
     "must": "~0.13.1",
     "nyc": "~7.0.0",
-    "sinon": "~1.17.3"
+    "sinon": "~1.17.3",
+    "standard-version": "~2.4.0"
   },
   "homepage": "https://github.com/npm/wombat-cli#readme",
-  "keywords": [],
+  "keywords": ["npm", "cli", "npm hooks", "webhooks"],
   "license": "ISC",
   "engines": {
     "node": ">=0.10"
@@ -51,6 +52,7 @@
   "scripts": {
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
+    "release": "standard-version",
     "test": "nyc mocha -R spec test/",
     "travis": "npm run lint && npm test"
   }
