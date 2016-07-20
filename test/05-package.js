@@ -4,7 +4,6 @@
 var
 	demand   = require('must'),
 	Registry = require('../lib/registry'),
-	Report   = require('../lib/report'),
 	sinon    = require('sinon'),
 	Package  = require('../commands/package')
 	;
