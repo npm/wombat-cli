@@ -88,23 +88,6 @@ describe('registry client', function()
 
 	describe('authed()', function()
 	{
-		it('responds with an error when there is no auth token', function(done)
-		{
-			var authstub = sinon.stub();
-			authstub.returns(null);
-
-			var reg = Registry();
-			reg.config = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
-			reg.getAuthToken = authstub;
-
-			reg.authed({ method: 'GET', uri: '/foo' }, function(err, res, body)
-			{
-				err.must.be.an.object();
-				err.must.match(/you are not logged in/);
-				done();
-			});
-		});
-
 		it('calls request with the passed uri', function(done)
 		{
 			var expected = {

@@ -51,6 +51,14 @@ function view(argv)
 			return;
 		}
 
+		if (!pkg['dist-tags'])
+		{
+			report.failure('package', 'this package is probably broken');
+			console.log(Object.keys(pkg));
+			report.json(pkg);
+			return;
+		}
+
 		var latest = pkg['dist-tags'].latest;
 		var version = pkg.versions[latest];
 
