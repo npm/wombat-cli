@@ -1,7 +1,7 @@
 {
   "name": "wombat",
   "description": "The wombat cli tool.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "C J Silverio <ceej@npmjs.com>",
   "bin": {
     "wombat": "bin/wombat-cli.js",
@@ -39,7 +39,12 @@
     "standard-version": "~2.4.0"
   },
   "homepage": "https://github.com/npm/wombat-cli#readme",
-  "keywords": ["npm", "cli", "npm hooks", "webhooks"],
+  "keywords": [
+    "npm",
+    "cli",
+    "npm hooks",
+    "webhooks"
+  ],
   "license": "ISC",
   "engines": {
     "node": ">=0.10"
