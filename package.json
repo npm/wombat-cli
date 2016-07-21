@@ -1,7 +1,7 @@
 {
   "name": "wombat",
   "description": "The wombat cli tool.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "C J Silverio <ceej@npmjs.com>",
   "bin": {
     "wombat": "bin/wombat-cli.js",
