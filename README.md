@@ -29,9 +29,10 @@ The wombat cli tool.
 the helpful wombat tool
 
 Commands:
-  hook               control your hooks
-  package <package>  see information about the named package
-  whoami             the username you are authenticated as
+  hook                control your hooks
+  package <package>   see information about the named package
+  versions <package>  see all available versions for the named package
+  whoami              the username you are authenticated as
 
 Options:
   --registry, -r  the registry configuration to use         [default: "default"]
@@ -89,6 +90,8 @@ Examples:
 ## viewing packages
 
 `wombat package yargs` shows you a formatted description of the package meta-data. Pass `--readme` to get the package readme rendered in your terminal as markdown!
+
+`wombat versions yargs` shows you a list of all dist-tags and versions for the named package (in this case, yargs).
 
 ## whoami
 
