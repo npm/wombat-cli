@@ -34,7 +34,7 @@
     "lodash.assign": "~4.0.9",
     "mocha": "~2.5.3",
     "must": "~0.13.1",
-    "nyc": "~7.0.0",
+    "nyc": "~8.1.0",
     "sinon": "~1.17.3",
     "standard-version": "~2.4.0"
   },
