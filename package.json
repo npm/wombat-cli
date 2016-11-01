@@ -47,7 +47,7 @@
   ],
   "license": "ISC",
   "engines": {
-    "node": ">=0.10"
+    "node": ">= 4"
   },
   "main": "index.js",
   "repository": {
