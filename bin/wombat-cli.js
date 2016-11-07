@@ -18,8 +18,10 @@ var yargs = require('yargs')
 		default: false,
 	})
 	.help('help')
+	.alias('help', 'h')
 	.version(function() { return require('../package').version; })
 	.describe('version', 'show version information')
+	.alias('version', 'v')
 	.usage('the helpful wombat tool');
 
 var requireDirectory = require('require-directory'),
