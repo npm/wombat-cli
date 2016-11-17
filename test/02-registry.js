@@ -100,7 +100,7 @@ describe('registry client', function()
 			requestSpy.yields(null, 'response', 'body');
 
 			var authstub = sinon.stub();
-			authstub.returns('i-am-a-token');
+			authstub.returns({token: 'i-am-a-token'});
 
 			var reg = Registry();
 			reg.config = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
@@ -131,7 +131,7 @@ describe('registry client', function()
 			requestSpy.yields(null, 'response', 'body');
 
 			var authstub = sinon.stub();
-			authstub.returns('i-am-a-token');
+			authstub.returns({token: 'i-am-a-token'});
 
 			var reg = Registry();
 			reg.config = new Config({ registry: 'default' }, assign({}, Config.DEFAULTS));
