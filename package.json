@@ -15,7 +15,7 @@
     "cli-columns": "~1.0.6",
     "cli-table2": "~0.2.0",
     "lodash.clonedeep": "~4.5.0",
-    "markdown-it": "~8.1.0",
+    "markdown-it": "~8.2.0",
     "markdown-it-terminal": "0.0.4",
     "moment": "~2.16.0",
     "normalize-package-data": "~2.3.5",
