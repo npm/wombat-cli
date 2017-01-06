@@ -36,7 +36,7 @@
     "must": "~0.13.1",
     "nyc": "~9.0.1",
     "sinon": "~1.17.5",
-    "standard-version": "~3.0.0"
+    "standard-version": "~4.0.0"
   },
   "homepage": "https://github.com/npm/wombat-cli#readme",
   "keywords": [
