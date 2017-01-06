@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "coveralls": "~2.11.15",
-    "eslint": "~3.10.2",
+    "eslint": "~3.13.0",
     "lodash.assign": "~4.2.0",
     "mocha": "~3.1.1",
     "must": "~0.13.1",
