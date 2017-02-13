@@ -29,12 +29,12 @@
     "yargs": "~6.6.0"
   },
   "devDependencies": {
-    "coveralls": "~2.11.15",
-    "eslint": "~3.13.0",
+    "coveralls": "~2.11.16",
+    "eslint": "~3.15.0",
     "lodash.assign": "~4.2.0",
     "mocha": "~3.2.0",
-    "must": "~0.13.1",
-    "nyc": "~10.0.0",
+    "must": "~0.13.4",
+    "nyc": "~10.1.2",
     "sinon": "~1.17.5",
     "standard-version": "~4.0.0"
   },
