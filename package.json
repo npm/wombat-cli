@@ -26,7 +26,7 @@
     "toml": "~2.3.0",
     "tomlify-j0.4": "~1.0.1",
     "update-notifier": "~2.0.0",
-    "yargs": "~6.6.0"
+    "yargs": "~7.1.0"
   },
   "devDependencies": {
     "coveralls": "~2.11.16",
