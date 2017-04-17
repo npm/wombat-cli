@@ -24,7 +24,7 @@
     "request": "~2.79.0",
     "require-directory": "~2.1.1",
     "toml": "~2.3.0",
-    "tomlify-j0.4": "~1.0.1",
+    "tomlify-j0.4": "~2.0.0",
     "update-notifier": "~2.0.0",
     "yargs": "~6.6.0"
   },
