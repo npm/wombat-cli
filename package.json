@@ -35,7 +35,7 @@
     "mocha": "~3.2.0",
     "must": "~0.13.4",
     "nyc": "~10.1.2",
-    "sinon": "~1.17.5",
+    "sinon": "~2.2.0",
     "standard-version": "~4.0.0"
   },
   "homepage": "https://github.com/npm/wombat-cli#readme",
