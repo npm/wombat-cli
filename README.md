@@ -1,5 +1,7 @@
 # wombat-cli
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/npm/wombat-cli.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/npm/wombat-cli.svg?branch=master)](https://travis-ci.org/npm/wombat-cli) [![Coverage Status](https://coveralls.io/repos/github/npm/wombat-cli/badge.svg?branch=master)](https://coveralls.io/github/npm/wombat-cli?branch=master)
 
 The wombat cli tool.
