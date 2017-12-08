@@ -18,7 +18,7 @@ var yargs = require('yargs')
 		default: false,
 	})
 	.option('otp', {
-		description:"If you have two-factor authentication enabled in auth-and-writes mode then you can provide a code from your authenticator with this."
+		description:'If you have two-factor authentication enabled in auth-and-writes mode then you can provide a code from your authenticator with this.'
 	})
 	.help('help')
 	.alias('help', 'h')

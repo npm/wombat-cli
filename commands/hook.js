@@ -44,7 +44,7 @@ hooks.add = function add(argv)
 	};
 
 	if (argv.otp)
-		opts.otp = argv.otp
+		opts.otp = argv.otp;
 
 	reg.authed(opts, function(err, res, hook)
 	{
@@ -52,7 +52,7 @@ hooks.add = function add(argv)
 			return report.failure('hook add', err.message);
 		if (!hook || res.statusCode < 200 || res.statusCode >= 400)
 
-			return report.failure('hook add', res.statusCode + ' ' + JSON.stringify(hook)+(res.statusCode === 401 && !argv.otp?'\nNOTE: if you are logged in, but have otp enabled please pass the otp code from your authenticator via --otp':''));
+			return report.failure('hook add', res.statusCode + ' ' + JSON.stringify(hook) + (res.statusCode === 401 && !argv.otp ? '\nNOTE: if you are logged in, but have otp enabled please pass the otp code from your authenticator via --otp' : ''));
 
 		if (argv.json)
 			report.json(hook);
@@ -70,7 +70,7 @@ hooks.rm = function rm(argv)
 	};
 
 	if (argv.otp)
-		opts.otp = argv.otp
+		opts.otp = argv.otp;
 	reg.authed(opts, function(err, res, hook)
 	{
 		if (err)
@@ -150,7 +150,7 @@ hooks.update = function update(argv)
 	};
 
 	if (argv.otp)
-		opts.otp = argv.otp
+		opts.otp = argv.otp;
 	reg.authed(opts, function(err, res, hook)
 	{
 		if (err)
