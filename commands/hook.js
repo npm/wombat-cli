@@ -24,9 +24,9 @@ hooks.add = function add(argv)
 		type = 'scope';
 	}
 
-    if (type) argv.type = type;
+	if (type) argv.type = type;
 
-    if (type === 'scope' && pkg[0] !== '@' && pkg.length)
+	if (type === 'scope' && pkg[0] !== '@' && pkg.length)
 	{
 		argv.pkg = '@' + pkg;
 	}
@@ -43,12 +43,16 @@ hooks.add = function add(argv)
 		}
 	};
 
+	if (argv.otp)
+		opts.otp = argv.otp
+
 	reg.authed(opts, function(err, res, hook)
 	{
 		if (err)
 			return report.failure('hook add', err.message);
 		if (!hook || res.statusCode < 200 || res.statusCode >= 400)
-			return report.failure('hook add', res.statusCode + ' ' + JSON.stringify(hook));
+
+			return report.failure('hook add', res.statusCode + ' ' + JSON.stringify(hook)+(res.statusCode === 401 && !argv.otp?'\nNOTE: if you are logged in, but have otp enabled please pass the otp code from your authenticator via --otp':''));
 
 		if (argv.json)
 			report.json(hook);
@@ -65,6 +69,8 @@ hooks.rm = function rm(argv)
 		uri: '/v1/hooks/hook/' + encodeURIComponent(argv.id),
 	};
 
+	if (argv.otp)
+		opts.otp = argv.otp
 	reg.authed(opts, function(err, res, hook)
 	{
 		if (err)
@@ -143,6 +149,8 @@ hooks.update = function update(argv)
 		}
 	};
 
+	if (argv.otp)
+		opts.otp = argv.otp
 	reg.authed(opts, function(err, res, hook)
 	{
 		if (err)
